@@ -1,6 +1,6 @@
 import viteImagemin from 'vite-plugin-imagemin'
 
-export default () => viteImagemin({
+export const setupImagemin = () => viteImagemin({
   gifsicle: {
     optimizationLevel: 7,
     interlaced: false,
