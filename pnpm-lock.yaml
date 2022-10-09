@@ -13,6 +13,7 @@ specifiers:
   commitlint-config-cz: ^0.13.3
   cz-conventional-changelog: ^3.3.0
   cz-customizable: ^7.0.0
+  dayjs: ^1.11.5
   eslint: ^8.24.0
   husky: ^8.0.1
   lint-staged: ^13.0.3
@@ -39,6 +40,7 @@ specifiers:
 dependencies:
   '@vueuse/core': 9.3.0_vue@3.2.40
   axios: 1.1.2
+  dayjs: 1.11.5
   mockjs: 1.1.0
   pinia: 2.0.22_bfjwoga25wxjazzogo7o372nwq
   vue: 3.2.40
@@ -2070,6 +2072,10 @@ packages:
     resolution: {integrity: sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==}
     engines: {node: '>=8'}
     dev: true
+
+  /dayjs/1.11.5:
+    resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
