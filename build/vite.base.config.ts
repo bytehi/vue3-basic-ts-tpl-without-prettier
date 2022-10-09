@@ -11,12 +11,9 @@ import WindiCSS from 'vite-plugin-windicss'
  */
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-// 支持自动引入API函数
-import AutoImport from 'unplugin-auto-import/vite'
 
-import Unocss from 'unocss/vite'
-import { presetIcons } from 'unocss'
-
+import setupAutoImport from './autoImport'
+import setupUnocss from './unocss'
 import { setupMockServer } from './mock'
 
 export default {
@@ -24,25 +21,9 @@ export default {
     vue(),
     vueSetupExtend(),
     WindiCSS(),
-    // https://github.com/antfu/unplugin-auto-import
-    AutoImport({
-      // 生成auto-import.d.ts声明文件
-      dts: 'src/auto-imports.d.ts',
-      // targets to transform
-      include: [
-        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-        /\.vue$/,
-        /\.vue\?vue/, // .vue
-      ],
-      imports: ['vue', 'vue-router', 'pinia'],
-      // 解决eslint报错
-      eslintrc: {
-        enabled: true,
-        filepath: './.eslintrc-auto-import.json',
-        // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
-        globalsPropValue: true,
-      },
-    }),
+    setupUnocss(),
+    setupMockServer(),
+    setupAutoImport(),
     Components({
       resolvers: [
         ElementPlusResolver({
@@ -50,30 +31,6 @@ export default {
         }),
       ],
     }),
-    Unocss({
-      presets: [
-        presetIcons({
-          scale: 1.2,
-          warn: true,
-        }),
-      ],
-      // 以下配置是为了可以直接使用标签 <i-ep-edit />
-      variants: [
-        {
-          match: (s) => {
-            if (s.startsWith('i-')) {
-              return {
-                matcher: s,
-                selector: (s) => {
-                  return s.startsWith('.') ? `${s.slice(1)},${s}` : s
-                },
-              }
-            }
-          },
-        },
-      ],
-    }),
-    setupMockServer(),
   ],
   resolve: {
     // 查找别名
