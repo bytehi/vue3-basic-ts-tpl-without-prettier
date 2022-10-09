@@ -17,6 +17,8 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Unocss from 'unocss/vite'
 import { presetIcons } from 'unocss'
 
+import { setupMockServer } from './mock'
+
 export default {
   plugins: [
     vue(),
@@ -71,6 +73,7 @@ export default {
         },
       ],
     }),
+    setupMockServer(),
   ],
   resolve: {
     // 查找别名
