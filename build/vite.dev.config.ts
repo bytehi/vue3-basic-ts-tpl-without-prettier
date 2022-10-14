@@ -10,12 +10,12 @@ export default {
     // ssr: false,
     // 网络代理
     proxy: {
-      // '/test/mock': {
-      //   target: 'http://localhost:3000/',
-      //   changeOrigin: true,
-      //   ws: true,
-      //   rewrite: pathStr => pathStr.replace('/test', '')
-      // },
+      '/api/mock': {
+        target: 'http://localhost:5173/',
+        changeOrigin: true,
+        ws: true,
+        rewrite: pathStr => pathStr.replace('/api', ''),
+      },
       '/test': {
         target: 'http://cicd-test.xgjktech.com.cn/',
         changeOrigin: true,
