@@ -8,7 +8,6 @@ import WindiCSS from 'vite-plugin-windicss'
 import setupAutoImport from './build/autoImport'
 import setupComponents from './build/components'
 import setupUnocss from './build/unocss'
-import { setupMockServer } from './build/mock'
 
 import setupCompressPlugin from './build/compressPlugin'
 
@@ -24,7 +23,6 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       vueSetupExtend(),
       WindiCSS(),
       setupUnocss(),
-      setupMockServer(),
 
       isProd && setupCompressPlugin(),
     ],

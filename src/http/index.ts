@@ -232,15 +232,8 @@ const http = new Http({
   },
 })
 
-const mockHttp = new Http({
-  baseURL: '/mock',
-  timeout: 1200,
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  },
-})
-
 window.$http = http
-window.$mockHttp = mockHttp
 
-export { http, mockHttp }
+export {
+  http,
+}
