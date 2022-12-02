@@ -22,6 +22,13 @@ interface IHttpRequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
   interceptors?: TRequestInterceptor<T>
 }
 
+interface IResponseData {
+  success: boolean
+  data: any
+  code: number
+  message: string | null
+}
+
 class Http {
   axios: AxiosInstance
   interceptors?: TRequestInterceptor
@@ -99,18 +106,23 @@ class Http {
     return config
   }
 
-  private requestFailInterceptor(error) {
+  requestFailInterceptor(error) {
     return Promise.reject(error)
   }
 
-  private responseSuccessInterceptor(response: AxiosResponse) {
+  responseSuccessInterceptor(response: AxiosResponse): IResponseData {
     const res = response.data
 
     const { data } = res
-    return data
+    return {
+      success: true,
+      data,
+      code: 1,
+      message: 'success',
+    }
   }
 
-  private responseFailInterceptor(error: any) {
+  responseFailInterceptor(error: any) {
     const { status } = error?.response
     // let msg = ''
     if (status < 200 || status >= 300) {
@@ -124,10 +136,10 @@ class Http {
     return Promise.reject(error)
   }
 
-  private handleCodeError() {
+  handleCodeError() {
   }
 
-  private handleStatusError(status: number) {
+  handleStatusError(status: number) {
     let message = ''
     switch (status) {
       case 400:
@@ -169,13 +181,13 @@ class Http {
     return `${message}，请检查网络或联系管理员！`
   }
 
-  private getToken() {
+  getToken() {
     return window.localStorage.getItem('token') || ''
   }
 
   request(config: IHttpRequestConfig) {
     return new Promise((resolve, reject) => {
-      this.axios.request<any, T>(config).then((res) => {
+      this.axios.request(config).then((res): void => {
         if (config.interceptors?.responseSuccessInterceptor)
           res = config.interceptors.responseSuccessInterceptor(res)
 
@@ -220,6 +232,15 @@ const http = new Http({
   },
 })
 
-window.$http = http
+const mockHttp = new Http({
+  baseURL: '/mock',
+  timeout: 1200,
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+})
 
-export { http }
+window.$http = http
+window.$mockHttp = mockHttp
+
+export { http, mockHttp }
